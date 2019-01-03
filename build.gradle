@@ -1,0 +1,52 @@
+apply plugin: 'cpp'
+apply plugin: 'google-test'
+
+model {
+	repositories {
+        libs(PrebuiltLibraries) {
+            googleTest { 
+                headers.srcDir new File("/usr/local/include/gtest") 
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("/usr/local/lib/libgtest.a") 
+                }
+            }
+        }
+    }
+
+    components {
+		flood_fill(NativeLibrarySpec) { } 
+        
+        main(NativeExecutableSpec) { 
+            sources {
+                cpp.lib library: "flood_fill" 
+            }
+        }
+    }
+
+    binaries {
+        withType(GoogleTestTestSuiteBinarySpec) {
+            lib library: "googleTest", linkage: "static" 
+
+            if (targetPlatform.operatingSystem.linux) {
+                cppCompiler.args '-pthread'
+                linker.args '-pthread'
+            }
+        }
+    }
+
+    toolChains {
+	    gcc(Gcc) {
+	        eachPlatform {
+	            cppCompiler.withArguments { args ->
+	                args << "-std=c++11"
+	            }
+	            cppCompiler.withArguments { args ->
+	                args << "-Wall"
+	            }
+	            cppCompiler.withArguments { args ->
+	                args << "-Wextra"
+	            }
+	        }
+	    }
+	}
+}
