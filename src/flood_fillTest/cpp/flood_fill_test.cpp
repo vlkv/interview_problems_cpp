@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
 #include "flood_fill.hpp"
+#include <gtest/gtest.h>
+#include <iostream>
 
 TEST(FloodFillProblemSolverTest, Test1) {
 
@@ -12,7 +13,14 @@ TEST(FloodFillProblemSolverTest, Test1) {
 	
 	FloodFill ff(data);
 	auto res = ff.findLargestColorArea();
-    EXPECT_EQ(res.size(), 0);
+	std::cout << "Result is" << std::endl;
+	for (auto it = res.begin(); it != res.end(); ++it) {
+		std::cout << "row=" << it->row << ", col=" << it->col << std::endl;	
+	}
+	
+    EXPECT_EQ(res.size(), 4);
+    Color c = data[res.begin()->row][res.begin()->col];
+    EXPECT_EQ(1, c);
 }
 
 int main(int argc, char **argv) {

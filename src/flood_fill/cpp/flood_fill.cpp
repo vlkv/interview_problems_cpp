@@ -4,30 +4,29 @@
 CellsSet FloodFill::findLargestColorArea() {
 	CellsSet result;
 
-	for (int i = 0; i < _n; ++i) {
-		for (int j = 0; j < _m; ++j) {
-			Cell startCell {.x = i, .y = j};
-			if (_visited.find(startCell) != _visited.end()) {
+	for (int col = 0; col < _cols; ++col) {
+		for (int row = 0; row < _rows; ++row) {
+			Cell cell {.col = col, .row = row};
+			if (_visited.find(cell) != _visited.end()) {
 				continue;
 			}
 
-			std::unordered_set<Cell, CellHash, CellEqual> area = findColorArea(i, j);
+			CellsSet area = findColorArea(cell);
 			if (area.size() > result.size()) {
 				result = area;
 			}
 
-			_visited.insert(startCell);
+			_visited.insert(cell);
 		}
 	}
 
 	return result;
 }
 
-CellsSet FloodFill::findColorArea(int startX, int startY) {
+CellsSet FloodFill::findColorArea(const Cell& startCell) {
 	CellsSet result;
 	CellsSet cellsToVisit;
-	Cell startCell {.x = startX, .y = startY};
-	Color startColor = _data[startX][startY];
+	Color startColor = _data[startCell.row][startCell.col];
 	cellsToVisit.insert(startCell);
 
 	while (cellsToVisit.size() > 0) {
@@ -36,7 +35,7 @@ CellsSet FloodFill::findColorArea(int startX, int startY) {
 		_visited.insert(*cell);
 		auto neighbours = cellNeighbours(*cell);
 		for (auto c = neighbours.begin(); c != neighbours.end(); ++c) {
-			Color cColor = _data[c->x][c->y];
+			Color cColor = _data[c->row][c->col];
 			if (cColor != startColor) {
 				continue;
 			}
@@ -53,17 +52,17 @@ CellsSet FloodFill::findColorArea(int startX, int startY) {
 
 std::vector<Cell> FloodFill::cellNeighbours(const Cell& cell) {
 	std::vector<Cell> result;
-	if (cell.x > 0) {
-		result.push_back(Cell {.x = cell.x - 1, .y = cell.y});
+	if (cell.col > 0) {
+		result.push_back(Cell {.col = cell.col - 1, .row = cell.row});
 	}
-	if (cell.x < _n - 1) {
-		result.push_back(Cell {.x= cell.x + 1, .y = cell.y});
+	if (cell.col < _cols - 1) {
+		result.push_back(Cell {.col= cell.col + 1, .row = cell.row});
 	}
-	if (cell.y > 0) {
-		result.push_back(Cell {.x = cell.x, .y = cell.y - 1});
+	if (cell.row > 0) {
+		result.push_back(Cell {.col = cell.col, .row = cell.row - 1});
 	}
-	if (cell.y < _m - 1) {
-		result.push_back(Cell {.x = cell.x, .y = cell.y + 1});
+	if (cell.row < _rows - 1) {
+		result.push_back(Cell {.col = cell.col, .row = cell.row + 1});
 	}
 	return result;
 }
