@@ -14,7 +14,8 @@ model {
     }
 
     components {
-		flood_fill(NativeLibrarySpec) { } 
+		flood_fill(NativeLibrarySpec) { }
+        //minimal_tree(NativeLibrarySpec) { } 
         
         main(NativeExecutableSpec) { 
             sources {

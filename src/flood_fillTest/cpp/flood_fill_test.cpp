@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
-TEST(FloodFillProblemSolverTest, Test1) {
+TEST(FloodFillTest, Test1) {
 
 	std::vector<std::vector<Color>> data {
 		{ 2, 2, 3 },
