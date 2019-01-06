@@ -6,9 +6,9 @@ TEST(FloodFillProblemSolverTest, Test1) {
 
 	std::vector<std::vector<Color>> data {
 		{ 2, 2, 3 },
-	    { 4, 1, 3 },
-	    { 4, 1, 1 },
-	    { 4, 2, 1 },
+		{ 4, 1, 3 },
+		{ 4, 1, 1 },
+		{ 4, 2, 1 },
 	};
 	
 	FloodFill ff(data);
@@ -19,8 +19,12 @@ TEST(FloodFillProblemSolverTest, Test1) {
 	}
 	
     EXPECT_EQ(res.size(), 4);
-    Color c = data[res.begin()->row][res.begin()->col];
-    EXPECT_EQ(1, c);
+    Color color = data[res.begin()->row][res.begin()->col];
+    EXPECT_EQ(1, color);
+	EXPECT_NE(res.find(Cell{.col=1, .row=1}), res.end());
+	EXPECT_NE(res.find(Cell{.col=1, .row=2}), res.end());
+	EXPECT_NE(res.find(Cell{.col=2, .row=2}), res.end());
+	EXPECT_NE(res.find(Cell{.col=2, .row=3}), res.end());
 }
 
 int main(int argc, char **argv) {
