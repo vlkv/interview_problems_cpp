@@ -25,5 +25,6 @@ public:
         std::shared_ptr<Node<T>> root = std::shared_ptr<Node<T>>(new Node<T>(array[imid]));
         root->_left = buildTree(array, ibeg, imid);
         root->_right = buildTree(array, imid + 1, iend);
+        return root;
     }
 };
