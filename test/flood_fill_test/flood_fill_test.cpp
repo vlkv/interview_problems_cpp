@@ -26,8 +26,3 @@ TEST(FloodFillTest, Test1) {
 	EXPECT_NE(res.find(Cell{.col=2, .row=2}), res.end());
 	EXPECT_NE(res.find(Cell{.col=2, .row=3}), res.end());
 }
-
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
