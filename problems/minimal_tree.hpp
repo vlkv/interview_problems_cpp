@@ -12,11 +12,11 @@ struct Node {
 
     Node<T>(T value) : _value(value) {}
 
-    void traverseInOrder(std::function<void(Node<T>*, int)> processNodeFun, int level) {
+    void traverseInOrder(std::function<void(const Node<T>&, int)> processNodeFun, int level) {
         if (_left) {
             _left->traverseInOrder(processNodeFun, level + 1);
         }
-        processNodeFun(this, level);
+        processNodeFun(*this, level);
         if (_right) {
             _right->traverseInOrder(processNodeFun, level + 1);
         }

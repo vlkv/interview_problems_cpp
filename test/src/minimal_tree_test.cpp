@@ -15,14 +15,14 @@ TEST(MinimalTreeTest, Test1) {
     EXPECT_EQ(res->_right->_value, 32);
     
     int maxLevel = 0;
-    auto fun = [&maxLevel](Node<int>* n, int level) mutable -> void {
+    auto fun = [&maxLevel](const Node<int>& n, int level) mutable -> void {
         if (level > maxLevel) {
             maxLevel = level;
         }
         while (level-- > 0) {
             std::cout << "  ";
         }
-        std::cout << std::setw(2) << n->_value << std::endl;
+        std::cout << std::setw(2) << n._value << std::endl;
     };
     res->traverseInOrder(fun, 0);
 

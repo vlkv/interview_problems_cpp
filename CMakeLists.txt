@@ -5,4 +5,4 @@ enable_testing()
 set(CMAKE_CXX_FLAGS "-g")
 
 add_subdirectory(test)
-add_subdirectory(flood_fill)
+add_subdirectory(problems)
