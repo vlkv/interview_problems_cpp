@@ -8,15 +8,11 @@ TEST(MergeSortTest, Test1) {
     int len = sizeof(dataArray)/sizeof(dataArray[0]);
     std::cout << "dataArray len = " << len << std::endl;
     std::vector<int> data(&dataArray[0], &dataArray[len]);
+    toStr(data);
+
     MergeSort<int>::sort(data);
-
-    for (int i = 0; i < data.size(); ++i) {
-        std::cout << data[i];
-        if (i != data.size() - 1) {
-            std::cout << " ";
-        }
-    }
-
+    toStr(data);
+    
     for (int i = 0; i < data.size() - 1; ++i) {
         ASSERT_LE(data[i], data[i+1]);
     }
@@ -27,14 +23,10 @@ TEST(MergeSortTest, Test2) {
     int len = sizeof(dataArray)/sizeof(dataArray[0]);
     std::cout << "dataArray len = " << len << std::endl;
     std::vector<int> data(&dataArray[0], &dataArray[len]);
+    toStr(data);
+    
     MergeSort<int>::sort(data);
-
-    for (int i = 0; i < data.size(); ++i) {
-        std::cout << data[i];
-        if (i != data.size() - 1) {
-            std::cout << " ";
-        }
-    }
+    toStr(data);
 
     for (int i = 0; i < data.size() - 1; ++i) {
         ASSERT_LE(data[i], data[i+1]);
