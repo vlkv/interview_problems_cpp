@@ -5,7 +5,7 @@ include_directories(${CMAKE_SOURCE_DIR}/util)
 
 add_executable(run_tests ${TEST_SRC})
 
-target_compile_features(run_tests PUBLIC cxx_std_11)
+target_compile_features(run_tests PUBLIC cxx_std_17)
 
 target_link_libraries(run_tests PUBLIC
     ${GTEST_BOTH_LIBRARIES}
