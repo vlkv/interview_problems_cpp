@@ -14,7 +14,7 @@ static std::string toStr(const std::vector<T>& v, std::size_t beg, std::size_t e
             res << ", ";
         }
     }
-    res << "]" << std::endl;
+    res << "]";
     return res.str();
 }
 
