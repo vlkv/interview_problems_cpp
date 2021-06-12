@@ -1,5 +1,6 @@
 #include "flood_fill.hpp"
 #include <unordered_set>
+#include <queue>
 
 CellsSet FloodFill::findLargestColorArea() {
 	CellsSet result;
@@ -15,8 +16,6 @@ CellsSet FloodFill::findLargestColorArea() {
 			if (area.size() > result.size()) {
 				result = area;
 			}
-
-			_visited.insert(cell);
 		}
 	}
 
@@ -25,26 +24,32 @@ CellsSet FloodFill::findLargestColorArea() {
 
 CellsSet FloodFill::findColorArea(const Cell& startCell) {
 	CellsSet result;
-	CellsSet cellsToVisit;
+	std::queue<Cell> queue;
 	Color startColor = _data[startCell.row][startCell.col];
-	cellsToVisit.insert(startCell);
+	queue.push(startCell);
 
-	while (cellsToVisit.size() > 0) {
-		auto cell = cellsToVisit.begin();
-		cellsToVisit.erase(cell);
-		_visited.insert(*cell);
-		auto neighbours = cellNeighbours(*cell);
+	while (!queue.empty()) {
+		auto cell = queue.front();
+		queue.pop();
+
+		if (_visited.count(cell) > 0) {
+			continue;
+		}
+		_visited.insert(cell);
+		result.insert(cell);
+
+		auto neighbours = cellNeighbours(cell);
 		for (auto c = neighbours.begin(); c != neighbours.end(); ++c) {
 			Color cColor = _data[c->row][c->col];
 			if (cColor != startColor) {
 				continue;
 			}
-			if (_visited.find(*c) != _visited.end()) {
+			if (_visited.count(*c) > 0) {
 				continue;
 			}
-			cellsToVisit.insert(*c);
+			queue.push(*c);
 		}
-		result.insert(*cell);
+
 	}
 
 	return result;
