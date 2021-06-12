@@ -1,4 +1,5 @@
 file(GLOB PROBLEMS_SRC
+    "*.h"
     "*.hpp"
     "*.cpp"
 )
