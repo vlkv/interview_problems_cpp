@@ -1,6 +1,4 @@
-#ifndef MERGE_SORT_HPP__
-#define MERGE_SORT_HPP__
-
+#pragma once
 #include <vector>
 #include <iostream>
 
@@ -47,5 +45,3 @@ private:
         // NOTE: We don't need to copy from helper[iRight] because that data is already in the array
     }
 };
-
-#endif

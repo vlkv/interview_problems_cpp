@@ -1,7 +1,7 @@
 find_package(GTest REQUIRED)
 
 file(GLOB_RECURSE TEST_SRC src/*.cpp)
-include_directories(${CMAKE_SOURCE_DIR}/util)
+include_directories(${CMAKE_SOURCE_DIR})
 
 add_executable(run_tests ${TEST_SRC})
 
@@ -12,5 +12,3 @@ target_link_libraries(run_tests PUBLIC
     pthread
     problems
 )
-
-

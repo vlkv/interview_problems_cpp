@@ -1,11 +1,12 @@
-#ifndef VECTOR_UTIL_HPP__
-#define VECTOR_UTIL_HPP__
-
+#pragma once
+#include <vector>
 #include <sstream>
 #include <string>
 
+namespace My {
+
 template <class T>
-static std::string toStr(const std::vector<T>& v, std::size_t beg, std::size_t end) {
+static std::string ToStr(const std::vector<T>& v, std::size_t beg, std::size_t end) {
     std::ostringstream res;
     res << "[";
     for (int i = beg; i < end; ++i) {
@@ -19,8 +20,8 @@ static std::string toStr(const std::vector<T>& v, std::size_t beg, std::size_t e
 }
 
 template <class T>
-static std::string toStr(const std::vector<T>& v) {
-    return toStr(v, 0, v.size());
+static std::string ToStr(const std::vector<T>& v) {
+    return ToStr(v, 0, v.size());
 }
 
-#endif
+} // namespace My

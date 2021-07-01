@@ -2,7 +2,7 @@
 #define QUICK_SORT_HPP__
 
 #include <vector>
-#include "vector_util.hpp"
+#include "util/vector.h"
 #include <iostream>
 
 
@@ -21,9 +21,9 @@ private:
         }
         int pivotIndex = (beg + end) / 2;
         T pivot = array[pivotIndex];
-        std::cout << toStr(array, beg, end) << " pivot=" << pivot << " ";
+        std::cout << My::ToStr(array, beg, end) << " pivot=" << pivot << " ";
         int mid = partition(array, pivot, beg, end);
-        std::cout << toStr(array, beg, mid) << " " << toStr(array, mid, end) << " mid=" << mid - beg << std::endl;
+        std::cout << My::ToStr(array, beg, mid) << " " << My::ToStr(array, mid, end) << " mid=" << mid - beg << std::endl;
         sort(array, beg, mid);
         sort(array, mid, end);
     }
@@ -47,7 +47,7 @@ private:
             if (i >= j) {
                 return i;
             }
-            
+
             T tmp = array[i];
             array[i] = array[j];
             array[j] = tmp;
