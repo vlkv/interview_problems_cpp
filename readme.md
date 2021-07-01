@@ -1,3 +1,5 @@
+=== `problems` and `test` folders
+
 * Install gtest sources
   - `sudo apt-get install libgtest-dev`
 * Build gtest
@@ -12,3 +14,12 @@
   - `cmake ./CMakeLists.txt`
   - `make`
   - `./test/run_tests --gtest_filter=QuickSortTest.`
+
+
+=== `problems2` folder
+* Open the repository root as VSCode workspace
+* Open any of the problem2/*.cpp files
+* And then
+  * Build --- Ctr + Shift + B
+  * Run --- Ctr + F5
+  * Debug --- F5
