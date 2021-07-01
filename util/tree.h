@@ -15,7 +15,8 @@ struct TreeNode {
     TreeNode* right;
 
     TreeNode(int val)
-        : left(nullptr)
+        : val(val)
+        , left(nullptr)
         , right(nullptr) {
     }
 };
@@ -75,6 +76,32 @@ tree is
 TreeNode* DeserializeTree(const std::string& vals) {
     auto repr = Impl::ParseTreeRepr(vals);
     return Impl::DeserializeTree(repr);
+}
+
+std::string SerializeTree(const TreeNode* root) {
+    std::vector<std::string> data;
+    std::queue<const TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        auto* node = q.front();
+        q.pop();
+        if (node) {
+            data.push_back(std::to_string(node->val));
+            q.push(node->left);
+            q.push(node->right);
+        } else {
+            data.push_back("null");
+        }
+    }
+    // Remove trailing nulls
+    for (int i = data.size() - 1; i >= 0; --i) {
+        if (data[i] == "null") {
+            data.erase(data.begin() + i);
+        } else {
+            break;
+        }
+    }
+    return '[' + Join(data, ", ") + ']';
 }
 
 } // namespace My

@@ -49,3 +49,7 @@ TEST(Trim, Test5) {
 TEST(Trim, Test6) {
     ASSERT_EQ(Trim("[1, 2, 3]", {'[', ']'}), "1, 2, 3");
 }
+
+TEST(Join, T1) {
+    ASSERT_EQ(Join({"one", "two", "three"}, ", "), "one, two, three");
+}

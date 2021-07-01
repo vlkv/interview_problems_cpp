@@ -44,4 +44,15 @@ std::string Trim(const std::string& str, std::unordered_set<char> chs={' '}) {
     return str.substr(i, j - i + 1);
 }
 
+std::string Join(const std::vector<std::string>& strs, std::string seq) {
+    std::string result;
+    for (int i = 0; i < strs.size(); ++i) {
+        result += strs.at(i);
+        if (i < strs.size() - 1) {
+            result += seq;
+        }
+    }
+    return result;
+}
+
 } // namespace My
