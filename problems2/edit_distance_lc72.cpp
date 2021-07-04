@@ -6,68 +6,81 @@
 using namespace std;
 
 class Solution {
-    struct Item {
-        string word;
-        int count;
-    };
 public:
-    /* Edit `source` word to `target`, transforming it with one of three operations:
-        - remove a letter
-        - insert a letter
-        - replace a letter
-    Return minimun number of operations needed. */
-    int Solve(const string& source, const string& target) {
-        unordered_set<string> visited;
-        queue<Item> q;
-        q.push({source, 0});
-        while (!q.empty()) {
-            auto item = q.front();
-            q.pop();
-            if (visited.count(item.word) > 0) {
-                continue;
-            }
-            visited.insert(item.word);
-            if (item.word == target) {
-                return item.count;
-            }
+    /*
+    dist[i][j] - is a min distance for transforming word1 subrange [0, i] to word2 subrange [0, j];
+      r o s
+    h
+    o
+    r
+    s
+    e
+    */
+    int minDistance(string word1, string word2) {
+        if (word1.empty()) return word2.length();
+        if (word2.empty()) return word1.length();
+        // ATTENTION: Need one more row and one more col for the empty strings cases...
+        vector<vector<int>> dist(word1.length() + 1, vector<int>(word2.length() + 1, numeric_limits<int>::max()));
 
-            for (const auto mut : MakeMutations(item.word, target)) {
-                if (visited.count(mut) > 0) {
-                    continue;
+        for (int i = 0; i <= word1.length(); ++i) {
+            dist[i][0] = i;
+        }
+        for (int j = 0; j <= word2.length(); ++j) {
+            dist[0][j] = j;
+        }
+
+        for (int i = 1; i <= word1.length(); ++i) {
+            for (int j = 1; j <= word2.length(); ++j) {
+                auto minDist = numeric_limits<int>::max();
+                minDist = min(minDist, dist[i - 1][j]);
+                minDist = min(minDist, dist[i][j - 1]);
+                if (word1[i - 1] == word2[j - 1]) {
+                    minDist = min(minDist, dist[i - 1][j - 1] - 1); // ATTENTION here to `- 1` thing!
+                } else {
+                    minDist = min(minDist, dist[i - 1][j - 1]);
                 }
-                q.push({mut, item.count + 1});
+                dist[i][j] = 1 + minDist;
             }
         }
-        return 0;
+        print(dist);
+        return dist[word1.length()][word2.length()];
     }
 private:
-    vector<string> MakeMutations(string word, const string& target) {
-        vector<string> result;
-        // replace a letter
-        for (int i = 0; i < word.length(); ++i) {
-            auto ch = word[i];
-            for (int j = 0; j < target.length(); ++j) {
-                word[i] = target.at(j);
-                result.push_back(word);
+    void print(vector<vector<int>>& v) {
+        for (int i = 0; i < v.size(); ++i) {
+            for (int j = 0; j < v[i].size(); ++j) {
+                cout << v[i][j] << ", ";
             }
-            word[i] = ch;
+            cout << endl;
         }
 
-        // TODO: insert a letter
-
-        // TODO: remove a letter
-        return result;
     }
 };
 
 TEST(EditWords, T0) {
-    ASSERT_EQ(Solution().Solve("horse", "apple"), 4);
+    ASSERT_EQ(Solution().minDistance("horse", "apple"), 4);
 }
 
 TEST(EditWords, T1) {
-    ASSERT_EQ(Solution().Solve("horse", "ros"), 3);
+    ASSERT_EQ(Solution().minDistance("horse", "ros"), 3);
 }
 
 TEST(EditWords, T2) {
-    ASSERT_EQ(Solution().Solve("intention", "execution"), 5);
+    ASSERT_EQ(Solution().minDistance("intention", "execution"), 5);
+}
+
+TEST(EditWords, T3) {
+    ASSERT_EQ(Solution().minDistance("a", "b"), 1);
+}
+
+TEST(EditWords, T4) {
+    ASSERT_EQ(Solution().minDistance("", ""), 0);
+}
+
+TEST(EditWords, T5) {
+    ASSERT_EQ(Solution().minDistance("", "a"), 1);
+}
+
+TEST(EditWords, T6) {
+    ASSERT_EQ(Solution().minDistance("a", ""), 1);
 }
