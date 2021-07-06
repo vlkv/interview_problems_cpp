@@ -104,4 +104,18 @@ std::string SerializeTree(const TreeNode* root) {
     return '[' + Join(data, ", ") + ']';
 }
 
+std::string PrintTree(const TreeNode* node, int level = 0) {
+    std::string padding;
+    for (int i = 0; i < level; ++i) {
+        padding += "  ";
+    }
+    std::string result = padding + "(";
+    if (node) {
+        result += std::to_string(node->val) + ",\n";
+        result += padding + PrintTree(node->right, level + 1) + ",\n";
+        result += padding + PrintTree(node->left, level + 1);
+    }
+    return result + ")";
+}
+
 } // namespace My
