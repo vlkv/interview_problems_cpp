@@ -21,7 +21,17 @@ TEST(DeserializeSerialize, T1) {
 TEST(PrintTree, T1) {
     auto* root = DeserializeTree("[1, 2, 3, null, 5, 6]");
     auto repr = PrintTree(root);
-    // TODO: Use multiline string literal here:
-    auto expected = "(1,\n  (3,\n      (),\n      (6,\n          (),\n          ())),\n  (2,\n      (5,\n          (),\n          ()),\n      ()))";
+    auto expected =
+R"((1,
+  (3,
+      (),
+      (6,
+          (),
+          ())),
+  (2,
+      (5,
+          (),
+          ()),
+      ())))";
     ASSERT_EQ(repr, expected);
 }
