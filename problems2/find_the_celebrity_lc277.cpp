@@ -9,12 +9,7 @@ public:
     }
 
     int solve() {
-        // unordered_set<int> visited;
         for (int i = 0; i < graph.size(); ++i) {
-            // if (visited.count(i) >= 0) {
-            //     continue;
-            // }
-            // visited.insert(i);
 
             // if i is a celebrity, then for all j
             // knows(i, j) must be false
@@ -25,10 +20,11 @@ public:
                 if (knows(i, j)) { // i is not a celebrity because i knows j
                     isCeleb = false;
                     break;
+                    // We will check the next i
                 }
                 if (!knows(j, i)) { // i is not a celebrity because j doesn't know i
-                    // but j could be a celebrity...
                     isCeleb = false;
+                    i = j; // but j could be a celebrity...
                     break;
                 }
             }
