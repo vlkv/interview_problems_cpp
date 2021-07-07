@@ -10,7 +10,6 @@ public:
 
     int solve() {
         for (int i = 0; i < graph.size(); ++i) {
-
             // if i is a celebrity, then for all j
             // knows(i, j) must be false
             // knows(j, i) must be true
@@ -24,7 +23,7 @@ public:
                 }
                 if (!knows(j, i)) { // i is not a celebrity because j doesn't know i
                     isCeleb = false;
-                    i = j; // but j could be a celebrity...
+                    i = max(i, j); // but j could be a celebrity... BUT: Avoid cycle
                     break;
                 }
             }
@@ -64,6 +63,15 @@ TEST(FindTheCelebrity, T2) {
         {0, 0, 1, 1, 0, 0}, // 3
         {1, 0, 0, 0, 1, 0}, // 4
         {0, 0, 1, 0, 1, 1}, // 5
+    });
+    ASSERT_EQ(s.solve(), -1);
+}
+
+TEST(FindTheCelebrity, T3) {
+    Solution s({
+        {1,1,1},
+        {1,1,0},
+        {0,0,1},
     });
     ASSERT_EQ(s.solve(), -1);
 }
